@@ -12,5 +12,5 @@ return array(
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
-    'App\\' => array($baseDir . '/src'),
+    'DumpCrawler\\' => array($baseDir . '/src'),
 );

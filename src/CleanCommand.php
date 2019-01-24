@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace DumpCrawler;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;

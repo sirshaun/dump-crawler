@@ -2,7 +2,7 @@
 
 <?php
 
-use App\CleanCommand;
+use DumpCrawler\CleanCommand;
 use Symfony\Component\Console\Application;
 
 require 'vendor/autoload.php';

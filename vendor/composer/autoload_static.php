@@ -22,9 +22,9 @@ class ComposerStaticInitf2490b56a6096cc3cb1b81254840d682
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Console\\' => 26,
         ),
-        'A' => 
+        'D' => 
         array (
-            'App\\' => 4,
+            'DumpCrawler\\' => 12,
         ),
     );
 
@@ -53,7 +53,7 @@ class ComposerStaticInitf2490b56a6096cc3cb1b81254840d682
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'App\\' => 
+        'DumpCrawler\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
