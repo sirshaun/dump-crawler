@@ -14,7 +14,8 @@ Next you’ll add these lines to your *.zshrc* (or *.bash_profile*) file:
 ```shell
 # remove trailing dd's
 function cleanup() {
-	~/Sites/dump-crawler/dump clean $PWD;
+	projectPath="${PWD}"
+	cd ~/Sites/dump-crawler && ./dump clean "${projectPath}" && cd "${projectPath}"
 }
 ```
 
