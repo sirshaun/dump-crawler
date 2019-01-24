@@ -26,18 +26,30 @@ class CleanCommand extends Command
         $project = $input->getArgument('project');
 
         $finder = new Finder;
+        ProgressBar::setFormatDefinition('minimal_nomax', '%elapsed:6s%/%estimated:-6s% %memory:6s%');
+        $searchProgressBar = new ProgressBar($output);
+        $searchProgressBar->setFormat('minimal_nomax');
 
         $output->writeln('<comment>Searching through project...</comment>');
-        $files = $finder
-            ->files()
-            ->in($project)
-            ->notPath('vendor', 'node_modules') // ignore vendor & node_modules folders
-            ->contains($reg);
+        $files = null;
+        $getFiles = function ($finder, $project, $reg) {
+            return $finder->files()
+                ->in($project)
+                ->notPath('vendor', 'node_modules') // ignore vendor & node_modules folders
+                ->contains($reg);
+        };
+        // while (!isset($files)) {
+        while ($files = $getFiles($finder, $project, $reg)) {
+            // $files = $getFiles($finder, $project, $reg);
+            $searchProgressBar->advance();
+        }
+        $searchProgressBar->finish();
 
-        $progressBar = new ProgressBar($output, count($files));
+        $filesProgressBar = new ProgressBar($output, count($files));
+        $filesProgressBar->setFormat('normal');
 
         $references = [];
-        $progressBar->start();
+        $filesProgressBar->start();
         foreach ($files as $file) {
             $name = basename($file->getRealPath());
             $contents = $file->getContents();
@@ -54,9 +66,9 @@ class CleanCommand extends Command
 
             // Note the refernces ...
             $references[$name] = $referenceLines;
-            $progressBar->advance();
+            $filesProgressBar->advance();
         }
-        $progressBar->finish();
+        $filesProgressBar->finish();
         echo PHP_EOL;
         echo PHP_EOL;
 
