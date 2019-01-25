@@ -36,13 +36,6 @@ class FileSearch
 
     protected function buildReferences($files, array &$references)
     {
-        // NOTE: Cannot check count because that starts the file search.
-        // We want the actual file search to run within the progress
-        // bar area so the user can see the progress.
-        /* if (iterator_count($files) < 1) {
-            return;
-        } */
-
         ProgressBar::setFormatDefinition('custom', '%elapsed:6s% <fg=white;bg=blue>%memory:6s%</>');
         $progressBar = new ProgressBar($this->output, 20);
         $progressBar->setFormat('custom');
