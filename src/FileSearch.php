@@ -54,6 +54,7 @@ class FileSearch
 
             $progressBar->advance();
         }
+        dd('hello');
 
         $progressBar->finish();
     }
