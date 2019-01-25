@@ -9,6 +9,7 @@ You’ll start by cloning this repo into your sites folder.
 2. Copy highligted text to clip board.
 3. In iTerm **cd** to your *sites* folder.
 4. Paste the *copied* text and run the command.
+5. ```cd``` into the folder (*dump-crawler*) and run ```composer install```
 
 Next you’ll add these lines to your *.zshrc* (or *.bash_profile*) file:
 ```shell
