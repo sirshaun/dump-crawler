@@ -6,8 +6,8 @@
 You’ll start by cloning this repo into your sites folder.
 
 1. Click **Clone** on the right side.
-2. Copy highligted text to clip board.
-3. In iTerm **cd** to your *sites* folder.
+2. Click the *copy to clipboard* icon.
+3. In iTerm (or your preferred terminal) ```cd``` to your *sites* folder.
 4. Paste the *copied* text and run the command.
 5. ```cd``` into the folder (*dump-crawler*) and run ```composer install```
 
@@ -22,7 +22,7 @@ function cleanup() {
 
 After changing those lines do not forgeto restart your terminal (or run the ```source``` command).
 
-**NOTE:** if your *sites* folder is located in a different place, then update the above code accordingly.
+**NOTE:** if your *sites* folder is located in a different place, then update the path accordingly.
 
 
 ---
