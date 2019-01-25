@@ -20,7 +20,7 @@ function cleanup() {
 }
 ```
 
-After changing those lines do not forgeto restart your terminal (or run the ```source``` command).
+After changing those lines do not forget to restart your terminal (or run the ```source``` command).
 
 **NOTE:** if your *sites* folder is located in a different place, then update the path accordingly.
 
