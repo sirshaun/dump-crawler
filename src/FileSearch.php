@@ -22,6 +22,7 @@ class FileSearch
 
     public function run()
     {
+        dd('hey!');
         $references = [];
 
         // Search through files using finder ...
