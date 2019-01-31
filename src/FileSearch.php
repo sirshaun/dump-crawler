@@ -22,7 +22,6 @@ class FileSearch
 
     public function run()
     {
-        dd('hey!');
         $references = [];
 
         // Search through files using finder ...
@@ -45,19 +44,21 @@ class FileSearch
         foreach ($files as $file) {
             $name = basename($file->getRealPath());
             $contents = $file->getContents();
+            $lastModified = filemtime($file->getRealPath());
             $referenceLines = [];
 
             // Find the exact lines of the matches ...
             $this->findInContent($contents, $referenceLines);
 
             // Note the refernces ...
-            $references[$name] = $referenceLines;
+            $references[$name]['lines'] = $referenceLines;
+            // Note file last modified at time
+            $references[$name]['lastModified'] = $lastModified;
 
             $progressBar->advance();
         }
-        dd('hello');
-
         $progressBar->finish();
+        $this->sortFiles($references);
     }
 
     protected function findInContent(string $contents, array &$referenceLines)
@@ -100,12 +101,24 @@ class FileSearch
 
     protected function renderTabulatedData(string $key, array $arr)
     {
+        $lastModified = date("F d Y H:i:s.", $arr['lastModified']);
         $table = new Table($this->output);
         $this->output->writeln("<--------------------------------------------------------------------");
         $this->output->writeln('<comment>' . $key . '</comment>');
+        $this->output->writeln('<comment>Last modified: ' . $lastModified . '</comment>');
         $table->setHeaders(['Line', 'Content'])
-            ->setRows($arr)
+            ->setRows($arr['lines'])
             ->render();
         $this->output->writeln("-------------------------------------------------------------------->");
+    }
+
+    protected function sortFiles(array &$references) // NOTE: Sorts in asc order
+    {
+        uasort($references, function ($a, $b) {
+            if ($a['lastModified'] == $b['lastModified']) {
+                return 0;
+            }
+            return ($a['lastModified'] < $b['lastModified']) ? -1 : 1;
+        });
     }
 }
