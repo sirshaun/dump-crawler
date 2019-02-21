@@ -6,6 +6,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\Iterator\PathFilterIterator;
 
 class FileSearch
 {
@@ -20,7 +21,7 @@ class FileSearch
         $this->reg = '/^[^(\\\\|#)](\t|\s)*dd\(.*\);$/m';
     }
 
-    public function run()
+    public function run(): void
     {
         $references = [];
 
@@ -34,7 +35,7 @@ class FileSearch
         $this->outputReferences($references);
     }
 
-    protected function buildReferences($files, array &$references)
+    protected function buildReferences($files, array &$references): void
     {
         ProgressBar::setFormatDefinition('custom', '%elapsed:6s% <fg=white;bg=blue>%memory:6s%</>');
         $progressBar = new ProgressBar($this->output, 20);
@@ -61,7 +62,7 @@ class FileSearch
         $this->sortFiles($references);
     }
 
-    protected function findInContent(string $contents, array &$referenceLines)
+    protected function findInContent(string $contents, array &$referenceLines): void
     {
         preg_match_all($this->reg, $contents, $matches, PREG_OFFSET_CAPTURE);
         foreach ($matches[0] as $arr) {
@@ -72,7 +73,7 @@ class FileSearch
         }
     }
 
-    protected function findFiles()
+    protected function findFiles(): PathFilterIterator
     {
         $finder = new Finder;
 
@@ -84,7 +85,7 @@ class FileSearch
             ->getIterator();
     }
 
-    protected function outputReferences(?array $references)
+    protected function outputReferences(?array $references): void
     {
         echo PHP_EOL;
         echo PHP_EOL;
@@ -99,7 +100,7 @@ class FileSearch
         }
     }
 
-    protected function renderTabulatedData(string $key, array $arr)
+    protected function renderTabulatedData(string $key, array $arr): void
     {
         $lastModified = date("F d Y H:i:s.", $arr['lastModified']);
         $table = new Table($this->output);
@@ -112,8 +113,8 @@ class FileSearch
         $this->output->writeln("-------------------------------------------------------------------->");
     }
 
-    protected function sortFiles(array &$references) // NOTE: Sorts in asc order
-    {
+    protected function sortFiles(array &$references): void
+    { // NOTE: Sorts in asc order
         uasort($references, function ($a, $b) {
             if ($a['lastModified'] == $b['lastModified']) {
                 return 0;
